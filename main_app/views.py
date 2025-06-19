@@ -1,8 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Cat
+from django.views.generic.edit import CreateView
 
 # Create your views here.
+
+class CatCreate(CreateView):
+  model = Cat
+  # fields = '__all__'
+  fields = ['name', 'breed', 'description', 'age', 'image']
+  # success_url = '/cats/'
 
 # class Cat:
 #   def __init__(self, name, breed, description, age):
