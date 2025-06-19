@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Cat
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -54,3 +54,11 @@ def cats_detail(request, cat_id):
                 {'cat': cat, 
                 'feeding_form': feeding_form
                 })
+
+def add_feeding(request, cat_id):
+  form = FeedingForm(request.POST)
+  if form.is_valid():
+    new_feeding = form.save(commit=False)
+    new_feeding.cat_id = cat_id
+    new_feeding.save()
+  return redirect('detail', cat_id=cat_id)
