@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from datetime import date
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -27,6 +28,7 @@ class Cat(models.Model):
   age = models.IntegerField() # Int Field
   image = models.ImageField(upload_to='main_app/static/uploads', default="")
   toys = models.ManyToManyField(Toy)
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
 
   def get_absolute_url(self):
     return reverse('detail', kwargs={'cat_id': self.id})
